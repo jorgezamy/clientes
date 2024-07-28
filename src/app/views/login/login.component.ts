@@ -9,7 +9,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api/api.service';
 
-import { ILogin } from '../../models/login.interface';
+import { ILogin, ILoginResponse } from '../../models/index';
 
 @Component({
   selector: 'app-login',

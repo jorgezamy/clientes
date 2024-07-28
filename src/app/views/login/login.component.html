@@ -9,14 +9,14 @@
     </div>
 
     <!-- Login Form -->
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <input type="text" id="login" class="fadeIn second" placeholder="login" formControlName="usuario">
-      <div *ngIf="loginForm.get('usuario')?.invalid && loginForm.get('usuario')?.touched" class="error-message">
+    <form [formGroup]="myForm" (ngSubmit)="onLogin()">
+      <input type="text" id="login" class="fadeIn second" placeholder="login" formControlName="username">
+      <div *ngIf="myForm.get('username')?.invalid && myForm.get('username')?.touched" class="error-message">
         El campo usuario es requerido.
       </div>
       
       <input type="password" id="password" class="fadeIn third" placeholder="password" formControlName="password">
-      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
+      <div *ngIf="myForm.get('password')?.invalid && myForm.get('password')?.touched" class="error-message">
         El campo usuario es requerido.
       </div>
       <input type="submit" class="fadeIn fourth" value="Log In">

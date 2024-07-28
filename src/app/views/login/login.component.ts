@@ -7,6 +7,9 @@ import {
   FormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api/api.service';
+
+import { ILogin } from '../../models/login.interface';
 
 @Component({
   selector: 'app-login',
@@ -16,21 +19,24 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  loginForm = new FormGroup<ILoginForm>({
-    usuario: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-  });
+  myForm: FormGroup;
+
+  constructor(private api: ApiService) {
+    this.myForm = new FormGroup({
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+    });
+  }
 
   onLogin() {
-    if (this.loginForm.valid) {
-      const formValue = this.loginForm.value;
+    const formValue: ILogin = this.myForm.value;
+
+    if (this.myForm.valid) {
       console.log(formValue);
     } else {
-      this.loginForm.markAllAsTouched();
+      this.myForm.markAllAsTouched();
     }
+
+    this.api.loginByUsername(formValue).subscribe((data) => console.log(data));
   }
-}
-interface ILoginForm {
-  usuario: FormControl<string | null>;
-  password: FormControl<string | null>;
 }

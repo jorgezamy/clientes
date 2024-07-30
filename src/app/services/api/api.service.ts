@@ -7,7 +7,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { ILogin, ILoginResponse, TResult } from '../../models/index';
+import { ILogin, ILoginResponse, ICustomersList } from '../../models/index';
 
 @Injectable({
   providedIn: 'root',
@@ -36,5 +36,14 @@ export class ApiService {
     };
 
     return throwError(() => new Error(JSON.stringify(structuredError)));
+  }
+
+  getCustomers(
+    pageNumber: number,
+    pageSize: number
+  ): Observable<ICustomersList[]> {
+    let baseUrl =
+      this.url + `Home/Customers?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    return this.http.get<ICustomersList[]>(baseUrl);
   }
 }

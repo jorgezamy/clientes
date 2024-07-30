@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../../layouts/header/header.component';
 import { FooterComponent } from '../../layouts/footer/footer.component';
 import { ApiService } from '../../services/api/api.service';
+import { ICustomerResponse } from '../../models/index';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,8 +15,8 @@ export class DashboardComponent {
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {
-    this.api.getCustomers(1, 10).subscribe((data) => {
-      console.log(data);
+    this.api.getCustomers(1, 10).subscribe((data: ICustomerResponse) => {
+      console.log(data.customers);
     });
   }
 }

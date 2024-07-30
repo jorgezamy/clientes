@@ -22,6 +22,11 @@
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
 
+    <!-- Show errors -->
+    <div class="alert alert-danger text-break" *ngIf="errorStatus">
+      <p>{{errorMsg}}</p>
+    </div>
+
     <!-- Remind Passowrd -->
     <div id="formFooter">
       <a class="underlineHover" href="#">Forgot Password?</a>

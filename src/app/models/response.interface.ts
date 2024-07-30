@@ -1,4 +1,10 @@
 export interface ILoginResponse {
   status: string;
-  result: string;
+  result: TResult;
 }
+
+export type TResult = {
+  error: string;
+  message: string;
+  token: string;
+};

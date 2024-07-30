@@ -23,7 +23,7 @@ import { ILogin, ILoginResponse } from '../../models/index';
 export class LoginComponent {
   myForm: FormGroup;
 
-  constructor(private api: ApiService, private router: Router) {
+  constructor(private _api: ApiService, private _router: Router) {
     this.myForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -36,7 +36,7 @@ export class LoginComponent {
 
   checkLocalStorage() {
     if (typeof window !== 'undefined' && localStorage.getItem('token')) {
-      this.router.navigate(['dashboard']);
+      this._router.navigate(['dashboard']);
     }
   }
 
@@ -47,7 +47,7 @@ export class LoginComponent {
     const formValue: ILogin = this.myForm.value;
 
     if (this.myForm.valid) {
-      this.api
+      this._api
         .loginByUsername(formValue)
         .pipe(
           catchError((error) => {
@@ -71,7 +71,7 @@ export class LoginComponent {
             if (dataResponse.status == 'Ok') {
               console.log('status ok');
               localStorage.setItem('token', dataResponse.result.token);
-              this.router.navigate(['dashboard']);
+              this._router.navigate(['dashboard']);
             }
           }
         });

@@ -15,11 +15,11 @@ import { ILogin, ILoginResponse, ICustomerResponse } from '../../models/index';
 export class ApiService {
   url: string = 'https://localhost:7012/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private _http: HttpClient) {}
 
   loginByUsername(form: ILogin): Observable<ILoginResponse> {
     let baseUrl = this.url + 'Login';
-    return this.http
+    return this._http
       .post<ILoginResponse>(baseUrl, form)
       .pipe(catchError(this.handleError));
   }
@@ -44,6 +44,6 @@ export class ApiService {
   ): Observable<ICustomerResponse> {
     let baseUrl =
       this.url + `Home/Customers?pageNumber=${pageNumber}&pageSize=${pageSize}`;
-    return this.http.get<ICustomerResponse>(baseUrl);
+    return this._http.get<ICustomerResponse>(baseUrl);
   }
 }

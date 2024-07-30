@@ -12,10 +12,10 @@ import { ICustomerResponse } from '../../models/index';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
-  constructor(private api: ApiService) {}
+  constructor(private _api: ApiService) {}
 
   ngOnInit(): void {
-    this.api.getCustomers(1, 10).subscribe((data: ICustomerResponse) => {
+    this._api.getCustomers(1, 10).subscribe((data: ICustomerResponse) => {
       console.log(data.customers);
     });
   }

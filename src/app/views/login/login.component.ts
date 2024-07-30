@@ -30,6 +30,16 @@ export class LoginComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.checkLocalStorage();
+  }
+
+  checkLocalStorage() {
+    if (typeof window !== 'undefined' && localStorage.getItem('token')) {
+      this.router.navigate(['dashboard']);
+    }
+  }
+
   errorStatus: boolean = false;
   errorMsg: string = '';
 
@@ -58,7 +68,6 @@ export class LoginComponent {
         .subscribe((data) => {
           if (data) {
             let dataResponse: ILoginResponse = data;
-            console.log(data);
             if (dataResponse.status == 'Ok') {
               console.log('status ok');
               localStorage.setItem('token', dataResponse.result.token);

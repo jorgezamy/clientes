@@ -8,6 +8,6 @@ export interface ICustomerResponse {
 
 export interface ICustomer {
   id: number;
-  name: string;
+  fullName: string;
   email: string;
 }

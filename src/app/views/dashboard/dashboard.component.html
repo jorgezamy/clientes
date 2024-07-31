@@ -1,5 +1,35 @@
 <app-header />
 
-    <p>dashboard works!</p>
+<div class="container mt-5">
+  <h3>Customer List</h3>
+
+  <button
+    type="button"
+    class="btn btn-primary btn-sm mt-4"
+    (click)="newCustomer()"
+  >
+    New Customer
+  </button>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let customer of customers"
+        (click)="editCustomer(customer.id)"
+      >
+        <th scope="row">{{ customer.id }}</th>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.email }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <app-footer />

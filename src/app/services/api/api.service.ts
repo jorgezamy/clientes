@@ -18,7 +18,7 @@ export class ApiService {
   constructor(private _http: HttpClient) {}
 
   loginByUsername(form: ILogin): Observable<ILoginResponse> {
-    let baseUrl = this.url + 'Login';
+    let baseUrl = this.url + 'login';
     return this._http
       .post<ILoginResponse>(baseUrl, form)
       .pipe(catchError(this.handleError));
@@ -43,7 +43,7 @@ export class ApiService {
     pageSize: number
   ): Observable<ICustomerResponse> {
     let baseUrl =
-      this.url + `Home/Customers?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+      this.url + `customers?pageNumber=${pageNumber}&pageSize=${pageSize}`;
     return this._http.get<ICustomerResponse>(baseUrl);
   }
 }

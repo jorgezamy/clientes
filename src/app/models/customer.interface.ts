@@ -4,9 +4,9 @@ export interface ICustomer {
   middleName: string;
   lastName: string;
   email: string;
-  phoneNumbestring: string;
-  dateOfBirtstring: string;
-  gendestring: string;
-  addresstring: string;
-  zipCodstring: string;
+  phoneNumber: string;
+  dateOfBirth: string;
+  gender: string;
+  address: string;
+  zipCode: string;
 }

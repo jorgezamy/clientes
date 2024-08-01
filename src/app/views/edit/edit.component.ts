@@ -1,16 +1,23 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 import { HeaderComponent } from '../../layouts/header/header.component';
 import { FooterComponent } from '../../layouts/footer/footer.component';
 import { ICustomer } from '../../models/index';
 import { ApiService } from '../../services/api/api.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent],
+  imports: [HeaderComponent, FooterComponent, ReactiveFormsModule],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css',
 })
@@ -59,5 +66,11 @@ export class EditComponent {
 
   getToken() {
     return localStorage.getItem('token');
+  }
+
+  updateForm() {
+    const formValue = this.editForm.value;
+
+    console.log('formValue', formValue);
   }
 }

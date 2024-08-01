@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../../layouts/header/header.component';
 import { FooterComponent } from '../../layouts/footer/footer.component';
 import { ApiService } from '../../services/api/api.service';
-import { ICustomer, ICustomerResponse } from '../../models/index';
+import { ICustomer, ICustomers, ICustomersResponse } from '../../models/index';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -20,12 +20,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
-  customers: ICustomer[] = [];
+  customers: ICustomers[] = [];
 
   constructor(private _api: ApiService, private _router: Router) {}
 
   ngOnInit(): void {
-    this._api.getCustomers(1, 10).subscribe((data: ICustomerResponse) => {
+    this._api.getCustomers(1, 10).subscribe((data: ICustomersResponse) => {
       console.log(data.customers);
       this.customers = data.customers;
     });

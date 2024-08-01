@@ -7,7 +7,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { ILogin, ILoginResponse, ICustomerResponse } from '../../models/index';
+import { ILogin, ILoginResponse, ICustomersResponse } from '../../models/index';
 
 @Injectable({
   providedIn: 'root',
@@ -41,9 +41,9 @@ export class ApiService {
   getCustomers(
     pageNumber: number,
     pageSize: number
-  ): Observable<ICustomerResponse> {
+  ): Observable<ICustomersResponse> {
     let baseUrl =
       this.url + `customers?pageNumber=${pageNumber}&pageSize=${pageSize}`;
-    return this._http.get<ICustomerResponse>(baseUrl);
+    return this._http.get<ICustomersResponse>(baseUrl);
   }
 }

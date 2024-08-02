@@ -56,4 +56,9 @@ export class ApiService {
     let baseUrl = this.url + `customers/${id}`;
     return this._http.get<ICustomer>(baseUrl);
   }
+
+  putCustomerById(id: string, form: ICustomer): Observable<IResponse> {
+    let baseUrl = this.url + `customers/${id}`;
+    return this._http.put<IResponse>(baseUrl, form);
+  }
 }

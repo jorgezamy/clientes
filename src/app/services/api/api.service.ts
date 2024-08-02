@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 
 import {
   ILogin,
-  ILoginResponse,
+  IResponse,
   ICustomersResponse,
   ICustomer,
 } from '../../models/index';
@@ -22,10 +22,10 @@ export class ApiService {
 
   constructor(private _http: HttpClient) {}
 
-  loginByUsername(form: ILogin): Observable<ILoginResponse> {
+  loginByUsername(form: ILogin): Observable<IResponse> {
     let baseUrl = this.url + 'login';
     return this._http
-      .post<ILoginResponse>(baseUrl, form)
+      .post<IResponse>(baseUrl, form)
       .pipe(catchError(this.handleError));
   }
 

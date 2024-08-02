@@ -1,4 +1,4 @@
-export interface ILoginResponse {
+export interface IResponse {
   status: string;
   result: TResult;
 }

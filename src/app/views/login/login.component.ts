@@ -11,7 +11,7 @@ import { ApiService } from '../../services/api/api.service';
 import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
 
-import { ILogin, ILoginResponse } from '../../models/index';
+import { ILogin, IResponse } from '../../models/index';
 
 @Component({
   selector: 'app-login',
@@ -67,7 +67,7 @@ export class LoginComponent {
         )
         .subscribe((data) => {
           if (data) {
-            let dataResponse: ILoginResponse = data;
+            let dataResponse: IResponse = data;
             if (dataResponse.status == 'Ok') {
               console.log('status ok');
               localStorage.setItem('token', dataResponse.result.token);

@@ -128,4 +128,8 @@ export class EditComponent {
       }
     });
   }
+
+  exit() {
+    this._route.navigate(['dashboard']);
+  }
 }

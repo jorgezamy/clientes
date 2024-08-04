@@ -56,8 +56,6 @@ export class EditComponent {
   });
 
   ngOnInit(): void {
-    this._alerts.showSuccess('Buena prueba', 'BIEN');
-
     this.customerId = this._activedRouter.snapshot.paramMap.get('id') || '0';
     let token = this.getToken();
     this._api.getCustomerById(this.customerId).subscribe((data) => {
@@ -107,9 +105,11 @@ export class EditComponent {
         .subscribe((data) => {
           console.log('response update: ', data);
           let response = data;
-          // if (response.status == 'OK') {
-          //   // this._alerts.showSuccess('Buena prueba', 'BIEN');
-          // }
+          if (response.status == 'Ok') {
+            this._alerts.showSuccess('Customer updated successfully', 'Done');
+          } else {
+            this._alerts.showError(data.result.message, 'Error');
+          }
         });
     } else {
       this.editForm.markAllAsTouched();
@@ -119,6 +119,13 @@ export class EditComponent {
   deleteCustomer() {
     this._api.deleteCustomerById(this.customerId).subscribe((data) => {
       console.log(data);
+      let response = data;
+      if (response.status == 'Ok') {
+        this._alerts.showSuccess('Customer deleted', 'Done');
+        this._route.navigate(['dashboard']);
+      } else {
+        this._alerts.showError(data.result.message, 'Error');
+      }
     });
   }
 }

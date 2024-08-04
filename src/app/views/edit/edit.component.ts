@@ -13,6 +13,7 @@ import { HeaderComponent } from '../../layouts/header/header.component';
 import { FooterComponent } from '../../layouts/footer/footer.component';
 import { ICustomer } from '../../models/index';
 import { ApiService } from '../../services/api/api.service';
+import { AlertsService } from '../../services/alerts/alerts.service';
 
 @Component({
   selector: 'app-edit',
@@ -30,7 +31,8 @@ export class EditComponent {
   constructor(
     private _route: Router,
     private _activedRouter: ActivatedRoute,
-    private _api: ApiService
+    private _api: ApiService,
+    private _alerts: AlertsService
   ) {}
 
   customerId: string = '0';
@@ -54,6 +56,8 @@ export class EditComponent {
   });
 
   ngOnInit(): void {
+    this._alerts.showSuccess('Buena prueba', 'BIEN');
+
     this.customerId = this._activedRouter.snapshot.paramMap.get('id') || '0';
     let token = this.getToken();
     this._api.getCustomerById(this.customerId).subscribe((data) => {
@@ -102,6 +106,10 @@ export class EditComponent {
         .putCustomerById(this.customerId, formValue)
         .subscribe((data) => {
           console.log('response update: ', data);
+          let response = data;
+          // if (response.status == 'OK') {
+          //   // this._alerts.showSuccess('Buena prueba', 'BIEN');
+          // }
         });
     } else {
       this.editForm.markAllAsTouched();

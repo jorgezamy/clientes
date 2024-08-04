@@ -107,4 +107,10 @@ export class EditComponent {
       this.editForm.markAllAsTouched();
     }
   }
+
+  deleteCustomer() {
+    this._api.deleteCustomerById(this.customerId).subscribe((data) => {
+      console.log(data);
+    });
+  }
 }

@@ -61,4 +61,14 @@ export class ApiService {
     let baseUrl = this.url + `customers/${id}`;
     return this._http.put<IResponse>(baseUrl, form);
   }
+
+  deleteCustomerById(id: string): Observable<IResponse> {
+    let baseUrl = this.url + `customers/${id}`;
+    let options = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+      }),
+    };
+    return this._http.delete<IResponse>(baseUrl, options);
+  }
 }

@@ -12,6 +12,7 @@ import {
   IResponse,
   ICustomersResponse,
   ICustomer,
+  ICustomerRequest,
 } from '../../models/index';
 
 @Injectable({
@@ -50,6 +51,16 @@ export class ApiService {
     let baseUrl =
       this.url + `customers?pageNumber=${pageNumber}&pageSize=${pageSize}`;
     return this._http.get<ICustomersResponse>(baseUrl);
+  }
+
+  postCustomer(form: ICustomerRequest): Observable<IResponse> {
+    let baseUrl = this.url + `customers`;
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this._http.post<IResponse>(baseUrl, form, options);
   }
 
   getCustomerById(id: string): Observable<ICustomer> {

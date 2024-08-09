@@ -15,6 +15,7 @@ import {
   ICustomerRequest,
 } from '../../models/index';
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,11 +23,14 @@ import { environment } from '../../../environments/environment';
 export class ApiService {
   url: string = `${environment.baseURL}`;
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private _authService: AuthService) {}
 
   private GetHeaders(): HttpHeaders {
+    const token = this._authService.getToken();
+
     return new HttpHeaders({
-      Authorization: `Bearer ${environment.apiToken}`,
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
     });
   }
 
@@ -64,31 +68,31 @@ export class ApiService {
 
   postCustomer(form: ICustomerRequest): Observable<IResponse> {
     let baseUrl = this.url + `customers`;
-    let options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-    return this._http.post<IResponse>(baseUrl, form, options);
+
+    return this._http.post<IResponse>(baseUrl, form, {
+      headers: this.GetHeaders(),
+    });
   }
 
   getCustomerById(id: string): Observable<ICustomer> {
     let baseUrl = this.url + `customers/${id}`;
-    return this._http.get<ICustomer>(baseUrl);
+    return this._http.get<ICustomer>(baseUrl, {
+      headers: this.GetHeaders(),
+    });
   }
 
   putCustomerById(id: string, form: ICustomer): Observable<IResponse> {
     let baseUrl = this.url + `customers/${id}`;
-    return this._http.put<IResponse>(baseUrl, form);
+    return this._http.put<IResponse>(baseUrl, form, {
+      headers: this.GetHeaders(),
+    });
   }
 
   deleteCustomerById(id: string): Observable<IResponse> {
     let baseUrl = this.url + `customers/${id}`;
-    let options = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-      }),
-    };
-    return this._http.delete<IResponse>(baseUrl, options);
+
+    return this._http.delete<IResponse>(baseUrl, {
+      headers: this.GetHeaders(),
+    });
   }
 }

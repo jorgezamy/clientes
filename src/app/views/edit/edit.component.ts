@@ -4,7 +4,6 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  // FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -14,6 +13,7 @@ import { FooterComponent } from '../../layouts/footer/footer.component';
 import { ICustomer } from '../../models/index';
 import { ApiService } from '../../services/api/api.service';
 import { AlertsService } from '../../services/alerts/alerts.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-edit',
@@ -32,7 +32,8 @@ export class EditComponent {
     private _route: Router,
     private _activedRouter: ActivatedRoute,
     private _api: ApiService,
-    private _alerts: AlertsService
+    private _alerts: AlertsService,
+    private _authService: AuthService
   ) {}
 
   customerId: string = '0';
@@ -55,11 +56,15 @@ export class EditComponent {
     ]),
   });
 
+  private getToken() {
+    return this._authService.getToken();
+  }
+
   ngOnInit(): void {
     this.customerId = this._activedRouter.snapshot.paramMap.get('id') || '0';
     let token = this.getToken();
+
     this._api.getCustomerById(this.customerId).subscribe((data) => {
-      console.log('customer', data);
       this.customer = data;
       this.editForm.patchValue({
         firstName: this.customer.firstName,
@@ -72,14 +77,7 @@ export class EditComponent {
         address: this.customer.address,
         zipCode: this.customer.zipCode,
       });
-
-      console.log('editForm', this.editForm.value);
     });
-    console.log('token', token);
-  }
-
-  getToken() {
-    return localStorage.getItem('token');
   }
 
   updateForm() {
@@ -97,13 +95,9 @@ export class EditComponent {
     };
 
     if (this.editForm.valid) {
-      console.log('es valido');
-      console.log('formValue', formValue);
-
       this._api
         .putCustomerById(this.customerId, formValue)
         .subscribe((data) => {
-          console.log('response update: ', data);
           let response = data;
           if (response.status == 'Ok') {
             this._alerts.showSuccess('Customer updated successfully', 'Done');
@@ -118,7 +112,6 @@ export class EditComponent {
 
   deleteCustomer() {
     this._api.deleteCustomerById(this.customerId).subscribe((data) => {
-      console.log(data);
       let response = data;
       if (response.status == 'Ok') {
         this._alerts.showSuccess('Customer deleted', 'Done');

@@ -14,14 +14,21 @@ import {
   ICustomer,
   ICustomerRequest,
 } from '../../models/index';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  url: string = 'https://localhost:7012/';
+  url: string = `${environment.baseURL}`;
 
   constructor(private _http: HttpClient) {}
+
+  private GetHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      Authorization: `Bearer ${environment.apiToken}`,
+    });
+  }
 
   loginByUsername(form: ILogin): Observable<IResponse> {
     let baseUrl = this.url + 'login';
@@ -50,7 +57,9 @@ export class ApiService {
   ): Observable<ICustomersResponse> {
     let baseUrl =
       this.url + `customers?pageNumber=${pageNumber}&pageSize=${pageSize}`;
-    return this._http.get<ICustomersResponse>(baseUrl);
+    return this._http.get<ICustomersResponse>(baseUrl, {
+      headers: this.GetHeaders(),
+    });
   }
 
   postCustomer(form: ICustomerRequest): Observable<IResponse> {

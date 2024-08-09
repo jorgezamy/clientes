@@ -43,6 +43,7 @@ Thumbs.db
 
 # Environment variables
 .env
+src/environments/
 
 # HTTP files
 *.http

@@ -59,7 +59,6 @@ export class LoginComponent {
           if (data) {
             let dataResponse: IResponse = data;
             if (dataResponse.status == 'Ok') {
-              console.log('status ok');
               localStorage.setItem('token', dataResponse.result.token);
               this._router.navigate(['dashboard']);
             }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../../layouts/header/header.component';
 import { FooterComponent } from '../../layouts/footer/footer.component';
 import { ApiService } from '../../services/api/api.service';
-import { ICustomer, ICustomers, ICustomersResponse } from '../../models/index';
+import { ICustomers, ICustomersResponse } from '../../models/index';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -26,7 +26,6 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     this._api.getCustomers(1, 10).subscribe((data: ICustomersResponse) => {
-      console.log(data.customers);
       this.customers = data.customers;
     });
   }

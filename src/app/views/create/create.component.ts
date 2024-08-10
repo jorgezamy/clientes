@@ -68,10 +68,7 @@ export class CreateComponent {
     };
 
     if (this.newForm.valid) {
-      console.log('es valido');
-
       this._api.postCustomer(customer).subscribe((data) => {
-        console.log('response update: ', data);
         let response = data;
         if (response.status == 'Ok') {
           this._alerts.showSuccess('Customer created successfully', 'Done');

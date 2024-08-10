@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api/api.service';
 import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
-import { jwtDecode } from 'jwt-decode';
 
 import { ILogin, IResponse } from '../../models/index';
 
@@ -29,38 +28,6 @@ export class LoginComponent {
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
-  }
-
-  ngOnInit(): void {
-    this.checkLocalStorage();
-  }
-
-  checkLocalStorage() {
-    if (typeof window !== 'undefined' && localStorage.getItem('token')) {
-      const token = localStorage.getItem('token') || '';
-
-      if (this.isTokenExpired(token)) {
-        localStorage.removeItem(token);
-        this._router.navigate(['login']);
-      } else {
-        this._router.navigate(['dashboard']);
-      }
-    }
-  }
-
-  isTokenExpired(token: string | null): boolean {
-    if (!token) return true;
-
-    try {
-      const decodedToken: any = jwtDecode(token);
-      const currentTime = Math.floor(Date.now() / 1000); // Obtén el tiempo actual en segundos
-
-      // Verifica si el token ha expirado
-      return decodedToken.exp < currentTime;
-    } catch (e) {
-      // En caso de error en la decodificación del token
-      return true;
-    }
   }
 
   errorStatus: boolean = false;

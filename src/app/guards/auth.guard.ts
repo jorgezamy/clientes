@@ -30,6 +30,6 @@ const isTokenExpired = (token: string | null): boolean => {
     return decodedToken.exp < currentTime;
   } catch (e) {
     // En caso de error en la decodificación del token
-    return true;
+    return false;
   }
 };

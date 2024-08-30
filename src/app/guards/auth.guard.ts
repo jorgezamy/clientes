@@ -11,7 +11,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const token = _auth.getToken() || '';
 
   if (isTokenExpired(token)) {
-    localStorage.removeItem(token);
+    _auth.removeToken();
     _router.navigate(['login']);
     return false; // Redirige y evita el acceso a la ruta protegida
   }
